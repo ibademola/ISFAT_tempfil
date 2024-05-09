@@ -5,7 +5,17 @@ import os
 from osgeo import gdal
 import pandas as pd
 
-def rec(ts, atc):
+def rec_lst(ts, atc):
+    """
+    Estimates pixel value of missing pixel using information from surrounding pixels.
+
+    Args:
+        ts (numpy.ndarray): Input 2D array representing pixel values.
+        atc (numpy.ndarray): Input 2D array representing Annual Temperature Cycle.
+
+    Returns:
+        float: Estimated pixel value.
+    """
     wx, wy = ts.shape[0], ts.shape[1]
     cp_x, cp_y = wx // 2, wy // 2
     
@@ -44,7 +54,18 @@ def rec(ts, atc):
     return rts
 
 def m_window(ts, atc, windowsize=10, stride=1):
+    """
+    Applies a moving window to estimate missing pixel values.
 
+    Args:
+        ts (numpy.ndarray): Input 2D array representing pixel values.
+        atc (numpy.ndarray): Input 2D array representing Annual Temperature Cycle.
+        windowsize (int, optional): Size of the moving window. Defaults to 10.
+        stride (int, optional): Stride of the moving window. Defaults to 1.
+
+    Returns:
+        numpy.ndarray: Array with estimated pixel values.
+    """
     padimage_1 = np.pad(ts, windowsize, 'reflect')
     padimage_2 = np.pad(atc, windowsize, 'reflect')
     output = np.zeros_like(ts)
@@ -54,12 +75,23 @@ def m_window(ts, atc, windowsize=10, stride=1):
             indx_i = i + windowsize
             indx_j = j + windowsize
             if indx_i + windowsize + 1 <= padimage_1.shape[0] and indx_j + windowsize + 1 <= padimage_1.shape[1]:
-                output[i, j] = rec(padimage_1[indx_i - windowsize:indx_i + windowsize + 1, indx_j - windowsize:indx_j + windowsize + 1],
+                output[i, j] = rec_lst(padimage_1[indx_i - windowsize:indx_i + windowsize + 1, indx_j - windowsize:indx_j + windowsize + 1],
                                    padimage_2[indx_i - windowsize:indx_i + windowsize + 1, indx_j - windowsize:indx_j + windowsize + 1])
 
     return output
 
 def create_georeferenced_tif(reference_tif, array_2d, output_path):
+    """
+    Creates a georeferenced TIFF file from a 2D array.
+
+    Args:
+        reference_tif (str): Path to a reference TIFF file.
+        array_2d (numpy.ndarray): 2D array representing pixel values.
+        output_path (str): Output path for the new TIFF file.
+
+    Returns:
+        gdal.Dataset: Output georeferenced TIFF file.
+    """
     ds = gdal.Open(reference_tif)
     gt = ds.GetGeoTransform()
     res = gt[1]
