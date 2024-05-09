@@ -1,0 +1,21 @@
+Metadata-Version: 2.1
+Name: tempfil
+Version: 0.0.1
+Summary: reconstruct missing LST pixels
+Home-page: https://github.com/yourname/yourproject
+Author: Adeniran Ibrahim
+Author-email: smartstudypatners@gmail.com
+Keywords: Image processing,Landsat,Satellite images
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Education
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: Programming Language :: Python :: 3.9
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: gdal
+Requires-Dist: pandas
+
+Tempfill from ISFAT is for reconstructing missing pixels using the novel framework developed by Ibrahim et al., 2024
