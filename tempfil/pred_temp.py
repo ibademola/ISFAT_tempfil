@@ -53,30 +53,30 @@ def rec_lst(ts, atc):
         rts = ts[cp_x, cp_y]
     return rts
 
-def m_window(ts, atc, windowsize=10, stride=1):
+def m_window(ts, atc, window_radius, stride=1):
     """
     Applies a moving window to estimate missing pixel values.
 
     Args:
         ts (numpy.ndarray): Input 2D array representing pixel values.
         atc (numpy.ndarray): Input 2D array representing Annual Temperature Cycle.
-        windowsize (int, optional): Size of the moving window. Defaults to 10.
+        window_radius (int, optional): Size of the moving window. Defaults to 10.
         stride (int, optional): Stride of the moving window. Defaults to 1.
 
     Returns:
         numpy.ndarray: Array with estimated pixel values.
     """
-    padimage_1 = np.pad(ts, windowsize, 'reflect')
-    padimage_2 = np.pad(atc, windowsize, 'reflect')
+    padimage_1 = np.pad(ts, window_radius, 'reflect')
+    padimage_2 = np.pad(atc, window_radius, 'reflect')
     output = np.zeros_like(ts)
 
     for i in range(ts.shape[0]):
         for j in range(ts.shape[1]):
-            indx_i = i + windowsize
-            indx_j = j + windowsize
-            if indx_i + windowsize + 1 <= padimage_1.shape[0] and indx_j + windowsize + 1 <= padimage_1.shape[1]:
-                output[i, j] = rec_lst(padimage_1[indx_i - windowsize:indx_i + windowsize + 1, indx_j - windowsize:indx_j + windowsize + 1],
-                                   padimage_2[indx_i - windowsize:indx_i + windowsize + 1, indx_j - windowsize:indx_j + windowsize + 1])
+            indx_i = i + window_radius
+            indx_j = j + window_radius
+            if indx_i + window_radius + 1 <= padimage_1.shape[0] and indx_j + window_radius + 1 <= padimage_1.shape[1]:
+                output[i, j] = rec_lst(padimage_1[indx_i - window_radius:indx_i + window_radius + 1, indx_j - window_radius:indx_j + window_radius + 1],
+                                   padimage_2[indx_i - window_radius:indx_i + window_radius + 1, indx_j - window_radius:indx_j + window_radius + 1])
 
     return output
 

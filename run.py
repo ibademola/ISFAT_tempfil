@@ -24,8 +24,8 @@ def main(folder_path, input_file_path, date, window_radius, output_path):
 
     a = get_atc_array(input_file_path, folder_path, date, window_radius)
     Ts_f = np_from_tif(input_file_path)
-    pred_arr = m_window(Ts_f, a, windowsize=10)
-    output_tif = create_georeferenced_tif(input_file_path, pred_arr, output_path)
+    pred_arr = m_window(Ts_f, a, window_radius)
+    create_georeferenced_tif(input_file_path, pred_arr, output_path)
 
     # Calculate processing time
     processing_time_seconds = time.time() - start_time
@@ -38,10 +38,10 @@ def main(folder_path, input_file_path, date, window_radius, output_path):
 
 if __name__ == "__main__":
     # User input for parameters
-    folder_path = input("Enter folder path: ") 
-    input_file_path = input("Enter input file path: ")
-    date = input("Enter date): ") or '2022-01-06'
+    folder_path = input("Enter path to folder containing annual LST images: ") 
+    input_file_path = input("Enter path to LST with missing pixels: ")
+    date = input("Enter acqusition date of LST imageto be reconstructed 'YYYY-MM-DD:' ")
     window_radius = int(input("Enter window radius: "))
-    output_path = input("Enter output path: ") 
+    output_path = input("Enter path to save reconstructed LST image: ") 
 
     main(folder_path, input_file_path, date, window_radius, output_path)
