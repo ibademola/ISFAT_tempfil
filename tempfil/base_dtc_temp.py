@@ -11,7 +11,7 @@ def extract_pixel_value(file_path, x, y):
     return pixel_value
 
 def get_acquisition_time(file_name):
-    acquisition_time = file_name.split('.')[0]  # Extracting the time part from the filename
+    acquisition_time = (file_name.split('.')[0])[5:]  # Extracting the time part from the filename
     return acquisition_time
 
 # Function to convert UTC to HKT
