@@ -43,7 +43,7 @@ processing_time_formatted = format_time(processing_time_seconds)
 # Log processing time
 logging.info(f"Processing time: {processing_time_formatted}")
 
-print("Array saved successfully.", f"Processing time: {processing_time_formatted}")
+print("missing LST pixels reconstructed successfully.", f"Processing time: {processing_time_formatted}")
 
 
 
