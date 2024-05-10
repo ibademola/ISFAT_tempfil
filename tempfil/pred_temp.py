@@ -107,7 +107,7 @@ def create_georeferenced_tif(reference_tif, array_2d, output_path):
     y = np.repeat(y, xsize)
     flatee = array_2d.flatten()
     dfn1 = pd.DataFrame({"x": x, "y": y, "value": flatee})
-    dfn1.to_csv("array_2d.xyz", index=False, header=None, sep=" ")
-    output_tif = gdal.Translate(output_path, "array_2d.xyz", outputSRS="EPSG:32649")
+    dfn1.to_csv(r"data\array_2d.xyz", index=False, header=None, sep=" ")
+    output_tif = gdal.Translate(output_path, r"data\array_2d.xyz", outputSRS="EPSG:32649")
     ds = None
     return output_tif
