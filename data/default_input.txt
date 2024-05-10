@@ -1,0 +1,12 @@
+Anuual
+    folder_path = data\crop_L8_36
+    input_file_path = data\crop_L8_36\LC08_L1TP_122044_20220106_20220114_02_T1.tif.tif
+    date = 2022-01-06
+    window_radius = 10
+    output_path = D:\Obj2\test717.tif
+
+Diurnal
+    folder_path = C:\ISFAT_tempfil\data\crop_H8_22
+    timee = 2022-01-06_1000  
+    window_radius = 10
+    input_file_path = C:\ISFAT_tempfil\data\crop_H8_22\Clip_20221224_1000.tif
